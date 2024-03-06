@@ -256,3 +256,236 @@ int main() {
     O(log n)  -------------------------
 
 ```
+
+---
+<br>
+
+# [Search, Insert, and Delete in an Unsorted Array | Array Operations](https://www.geeksforgeeks.org/search-insert-and-delete-in-an-unsorted-array/?ref=lbp)
+
+## Search Operation
+- In an ```unsorted array``` 
+  - Search operations can be performed by ```linear traversal``` from the first --> last
+- Time complexity : O(N)
+
+```cpp
+// C++ program to implement linear
+// search in unsorted array
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to implement search operation
+int findElement(int arr[], int n, int key)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		if (arr[i] == key)
+			return i;
+	
+	// If the key is not found
+	return -1;
+}
+
+// Driver's Code
+int main()
+{
+	int arr[] = { 12, 34, 10, 6, 40 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+
+	// Using a last element as search element
+	int key = 40;
+
+	// Function call
+	int position = findElement(arr, n, key);
+
+	if (position == -1)
+		cout << "Element not found";
+	else
+		cout << "Element Found at Position: "
+			<< position + 1;
+
+	return 0;
+}
+
+// This code is contributed
+// by Akanksha Rai
+
+```
+
+## Insert Operations (At the end)
+- In an ```unsorted array``` 
+  - Insertion faster when compared to ```sorted array```
+  - Due to not having to worry about the  position which the element is to be placed
+- Time complexity : O(1)
+
+    ![alt text](<../../Screenshots/Screenshot 2024-03-05 201335.png>)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Inserts a key in arr[] of given capacity.
+// n is the current size of arr[]. This
+// function returns n + 1 if insertion
+// is successful, else n.
+int insertSorted(int arr[], int n, int key, int capacity)
+{
+	// Cannot insert more elements if n is
+	// already more than or equal to capacity
+	if (n >= capacity)
+		return n;
+
+	arr[n] = key;
+	return (n + 1);
+}
+
+int main()
+{
+	int arr[20] = { 12, 16, 20, 40, 50, 70 };
+	int capacity = sizeof(arr) / sizeof(arr[0]);
+	int n = 6;
+	int i, key = 26;
+
+	cout << "Before Insertion: ";
+	for (i = 0; i < n; i++)
+		cout << arr[i] << " ";
+
+	// Inserting key
+	n = insertSorted(arr, n, key, capacity);
+
+	cout << "\nAfter Insertion: ";
+	for (i = 0; i < n; i++)
+		cout << arr[i] << " ";
+
+	return 0;
+
+  //Before Insertion: 12 16 20 40 50 70 
+  //After Insertion: 12 16 20 40 50 70 26 
+}
+
+```
+
+## Insert at any position
+- Is done by shifting elements ```to the right``` of the required position
+![alt text](<../../Screenshots/Screenshot 2024-03-05 204047.png>)
+
+
+```cpp
+// C++ Program to Insert an element
+// at a specific position in an Array
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to insert element
+// at a specific position
+void insertElement(int arr[], int n, int x, int pos)
+{
+	// shift elements to the right
+	// which are on the right side of pos
+	for (int i = n - 1; i >= pos; i--)
+		arr[i + 1] = arr[i];
+
+	arr[pos] = x;
+}
+
+// Driver's code
+int main()
+{
+	int arr[15] = { 2, 4, 1, 8, 5 };
+	int n = 5;
+
+	cout<<"Before insertion : ";
+	for (int i = 0; i < n; i++)
+		cout<<arr[i]<<" ";
+
+	cout<<endl;
+
+	int x = 10, pos = 2;
+
+	// Function call
+	insertElement(arr, n, x, pos);
+	n++;
+
+	cout<<"After insertion : ";
+	for (int i = 0; i < n; i++)
+		cout<<arr[i]<<" ";
+
+	return 0;
+}
+
+```
+
+## Delete operations
+- The element to be deleted is searched by using ```linear search```
+- Deletion operation performed followed by shifting the elements
+- Time complexity : 0(1)
+
+![alt text](<../../Screenshots/Screenshot 2024-03-05 204321.png>)
+
+```cpp
+// C++ program to implement delete operation in a
+// unsorted array
+#include <iostream>
+using namespace std;
+
+// To search a key to be deleted
+int findElement(int arr[], int n, int key);
+
+// Function to delete an element
+int deleteElement(int arr[], int n, int key)
+{
+	// Find position of element to be deleted
+	int pos = findElement(arr, n, key);
+
+	if (pos == -1) {
+		cout << "Element not found";
+		return n;
+	}
+
+	// Deleting element
+	int i;
+	for (i = pos; i < n - 1; i++)
+		arr[i] = arr[i + 1];
+
+	return n - 1;
+}
+
+// Function to implement search operation
+int findElement(int arr[], int n, int key)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		if (arr[i] == key)
+			return i;
+
+	return -1;
+}
+
+// Driver's code
+int main()
+{
+	int i;
+	int arr[] = { 10, 50, 30, 40, 20 };
+
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int key = 30;
+
+	cout << "Array before deletion\n";
+	for (i = 0; i < n; i++)
+		cout << arr[i] << " ";
+	
+
+	// Function call
+	n = deleteElement(arr, n, key);
+
+	cout << "\n\nArray after deletion\n";
+	for (i = 0; i < n; i++)
+		cout << arr[i] << " ";
+
+	return 0;
+}
+
+// This code is contributed by shubhamsingh10
+
+
+```

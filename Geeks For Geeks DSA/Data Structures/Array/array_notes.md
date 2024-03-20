@@ -190,11 +190,12 @@ int main() {
   - Sequential search algorithm
   - Starts at one end --> Goes through each element in list until desired element or group of elements is found
     - It will keep going until then
-  - Time complexity : O(N)
+  - Time complexity : ```O(N)```
     - N = lenght of array
 
 ## Binary Search
-- Used in ``` sorting an array ```
+- Array must be ```sorted``` first 
+- Faster than ```Ternary search```
 - Elements found by 
   - Repeatedly dividing the search interval in half 
   - Deciding the next interval to find the element
@@ -202,7 +203,57 @@ int main() {
     - N = lenght of array
   - One thing to note
     - Array ``` must be sorted ``` in increasing/decreasing order
+```cpp
+// Binary Search Example
+// Youtube reference : https://www.youtube.com/watch?v=fDKIpRe8GW4
+#include <iostream>
 
+// Binary search function
+int binarySearch(int arr[], int size, int target) {
+    int left = 0;
+    // Point to last element in array
+    int right = size - 1;
+    
+    while (left <= right) 
+    {
+        // Find the 'middle'
+        int mid = left + (right - left) / 2;
+        
+        // Check if target is present at mid
+        if (arr[mid] == target) {
+            return mid;
+        }
+        
+        // If target is greater, ignore left half
+        if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        // If target is smaller, ignore right half
+        else {
+            right = mid - 1;
+        }
+    }
+    
+    // If element is not present, return -1
+    return -1;
+}
+
+// Main function
+int main() {
+    int arr[] = {2, 3, 4, 10, 40};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 10;
+    
+    int result = binarySearch(arr, size, target);
+    
+    if (result == -1) {
+        std::cout << "Element not present in array" << std::endl;
+    } else {
+        std::cout << "Element found at index " << result << std::endl;
+   
+
+
+```
 ## Ternary Search
 - Divide and conquer algorithm
 - Similar to binary search where we ``` divide the array into two parts ```
@@ -211,6 +262,64 @@ int main() {
 - This algorithm ``` must be sorted ```
 - Time complexity : ``` O(log3N) ```
   - N = lenght of array
+
+```cpp
+// Ternary Search Example
+
+#include <iostream>
+
+// Ternary search function
+int ternarySearch(int arr[], int left, int right, int target) {
+    if (right >= left) {
+        int mid1 = left + (right - left) / 3;
+        int mid2 = mid1 + (right - left) / 3;
+
+        // Check if target is present at mid1 or mid2
+        if (arr[mid1] == target) {
+            return mid1;
+        }
+        if (arr[mid2] == target) {
+            return mid2;
+        }
+
+        // If target is smaller than mid1, search the left segment
+        if (target < arr[mid1]) {
+            return ternarySearch(arr, left, mid1 - 1, target);
+        }
+        // If target is greater than mid2, search the right segment
+        else if (target > arr[mid2]) {
+            return ternarySearch(arr, mid2 + 1, right, target);
+        }
+        // If target is between mid1 and mid2, search the middle segment
+        else {
+            return ternarySearch(arr, mid1 + 1, mid2 - 1, target);
+        }
+    }
+    
+    // If element is not present, return -1
+    return -1;
+}
+
+// Main function
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 6;
+
+    int result = ternarySearch(arr, 0, size - 1, target);
+
+    if (result == -1) {
+        std::cout << "Element not present in array" << std::endl;
+    } else {
+        std::cout << "Element found at index " << result << std::endl;
+    }
+
+    return 0;
+}
+
+
+```
+
 
 ```
 
@@ -340,7 +449,9 @@ int insertSorted(int arr[], int n, int key, int capacity)
 
 int main()
 {
+  // Has space for 20 values 
 	int arr[20] = { 12, 16, 20, 40, 50, 70 };
+  // capacity = 6 currently
 	int capacity = sizeof(arr) / sizeof(arr[0]);
 	int n = 6;
 	int i, key = 26;
@@ -349,7 +460,7 @@ int main()
 	for (i = 0; i < n; i++)
 		cout << arr[i] << " ";
 
-	// Inserting key
+	// Inserting key since 'n' is already at the end of the list
 	n = insertSorted(arr, n, key, capacity);
 
 	cout << "\nAfter Insertion: ";
@@ -366,6 +477,7 @@ int main()
 
 ## Insert at any position
 - Is done by shifting elements ```to the right``` of the required position
+
 ![alt text](<../../Screenshots/Screenshot 2024-03-05 204047.png>)
 
 
@@ -378,39 +490,44 @@ using namespace std;
 
 // Function to insert element
 // at a specific position
-void insertElement(int arr[], int n, int x, int pos)
+void insertElement(int arr[], int sizeOfArray, int valueToBeInserted, int pos)
 {
-	// shift elements to the right
-	// which are on the right side of pos
-	for (int i = n - 1; i >= pos; i--)
+	// Iterates from the end of the array to the actual position 
+	for (int i = sizeOfArray - 1; i >= pos; i--)
+    // Does the shifting towards the right
+    // Copies the value of the elements at 'i' to the position next to it
 		arr[i + 1] = arr[i];
 
-	arr[pos] = x;
+	arr[pos] = valueToBeInserted;
 }
 
 // Driver's code
 int main()
 {
 	int arr[15] = { 2, 4, 1, 8, 5 };
-	int n = 5;
+  int sizeOfArray = sizeof(arr) / sizeof(arr[0]);
 
 	cout<<"Before insertion : ";
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < sizeOfArray; i++)
 		cout<<arr[i]<<" ";
 
 	cout<<endl;
 
-	int x = 10, pos = 2;
+	int valueToBeInserted = 10, pos = 2;
 
 	// Function call
-	insertElement(arr, n, x, pos);
-	n++;
+	insertElement(arr, sizeOfArray, valueToBeInserted, pos);
+  
+  // Needed to reflect the actual size of the array after the insertion of the new element
+  sizeOfArray++;
 
 	cout<<"After insertion : ";
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < sizeOfArray; i++)
 		cout<<arr[i]<<" ";
 
 	return 0;
+  //Before insertion : 2 4 1 8 5 
+  //After insertion  : 2 4 10 1 8 5 
 }
 
 ```
@@ -443,8 +560,7 @@ int deleteElement(int arr[], int n, int key)
 	}
 
 	// Deleting element
-	int i;
-	for (i = pos; i < n - 1; i++)
+	for (int i = pos; i < n - 1; i++)
 		arr[i] = arr[i + 1];
 
 	return n - 1;
@@ -453,8 +569,7 @@ int deleteElement(int arr[], int n, int key)
 // Function to implement search operation
 int findElement(int arr[], int n, int key)
 {
-	int i;
-	for (i = 0; i < n; i++)
+	for (int i; = 0; i < n; i++)
 		if (arr[i] == key)
 			return i;
 
@@ -486,6 +601,149 @@ int main()
 }
 
 // This code is contributed by shubhamsingh10
+```
+<br>
 
+---
+
+<br>
+
+# [Search, Insert, and Delete in an SORTED ARRAY | Array Operations](https://www.geeksforgeeks.org/search-insert-and-delete-in-a-sorted-array/?ref=lbp)
+
+![alt text](../../Screenshots/Search-Operation-In-Sorted-Array.png)
+
+## Searching Sorted Array
+- Search operation perfromed by using [binary search](https://www.geeksforgeeks.org/binary-search)
+
+```cpp
+// Binary Search Example
+// Youtube reference : https://www.youtube.com/watch?v=fDKIpRe8GW4
+#include <iostream>
+
+// Binary search function
+int binarySearch(int arr[], int size, int target) {
+    int left = 0;
+    // Point to last element in array
+    int right = size - 1;
+    
+    while (left <= right) 
+    {
+        // Find the 'middle'
+        int mid = left + (right - left) / 2;
+        
+        // Check if target is present at mid
+        if (arr[mid] == target) {
+            return mid;
+        }
+        
+        // If target is greater, ignore left half
+        if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        // If target is smaller, ignore right half
+        else {
+            right = mid - 1;
+        }
+    }
+    
+    // If element is not present, return -1
+    return -1;
+}
+
+// Main function
+int main() {
+    int arr[] = {2, 3, 4, 10, 40};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 10;
+    
+    int result = binarySearch(arr, size, target);
+    
+    if (result == -1) {
+        std::cout << "Element not present in array" << std::endl;
+    } else {
+        std::cout << "Element found at index " << result << std::endl;
+```
+
+## [Binary search in more detail](https://www.geeksforgeeks.org/binary-search/)
+
+### Complexity Analysis of Binary Search
+#### Time complexity
+  - Best case --> 0(1)
+  - Average Case --> 0(log N)
+  - Worst Case --> 0(log N)
+#### Advantages of binary search
+  - Must faster than ```linear search```
+    - Especially for larger arrays
+  - More efficient than other search algorithms with similar time complexities  
+    - Algorithms like ```interpolation or exponential search ```
+#### Drawbacks of binary search
+  - Array needs to be sorted
+  - Data being searched needs to be stored in contguous memory locations 
+  - Elements of the array need to be comparable
+    - Aka, they need to be ordered
+#### Applications of Binary search
+- Can be used as building block for more complex algorithms used in ML
+  - Training neural networks
+  - Finding optimal hyperparameters for a model
+- Searching a database
+
+
+## Inserting into a sorted array
+- Serach operations performed by conducting 
+  - A binary search
+  - The actual insertion operation
+    - Shifting the elements
+- In an ```unsorted array``` insertion is much faster since we don't care about the position where the element is placed
+
+![alt text](../../Screenshots/Search-Operation-In-Sorted-Array.png)
+
+```cpp
+// C++ program to implement insert operation in 
+// an sorted array. 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// Inserts a key in arr[] of given capacity. n is current 
+// size of arr[]. This function returns n+1 if insertion 
+// is successful, else n. 
+int insertSorted(int arr[], int n, int key, int capacity) 
+{ 
+	// Cannot insert more elements if n is already 
+	// more than or equal to capacity 
+	if (n >= capacity) 
+		return n; 
+
+	int i; 
+	for (i = n - 1; (i >= 0 && arr[i] > key); i--) 
+		arr[i + 1] = arr[i]; 
+
+	arr[i + 1] = key; 
+
+	return (n + 1); 
+} 
+
+/* Driver code */
+int main() 
+{ 
+	int arr[20] = { 12, 16, 20, 40, 50, 70 }; 
+	int capacity = sizeof(arr) / sizeof(arr[0]); 
+	int n = 6; 
+	int i, key = 26; 
+
+	cout << "\nBefore Insertion: "; 
+	for (i = 0; i < n; i++) 
+		cout << arr[i] << " "; 
+
+	// Function call 
+	n = insertSorted(arr, n, key, capacity); 
+
+	cout << "\nAfter Insertion: "; 
+	for (i = 0; i < n; i++) 
+		cout << arr[i] << " "; 
+
+	return 0; 
+} 
+
+// This code is contributed by SHUBHAMSINGH10
 
 ```

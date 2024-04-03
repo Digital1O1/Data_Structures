@@ -546,30 +546,31 @@ int main()
 using namespace std;
 
 // To search a key to be deleted
-int findElement(int arr[], int n, int key);
+int findElement(int arr[], int arraySize, int key);
 
 // Function to delete an element
-int deleteElement(int arr[], int n, int key)
+int deleteElement(int arr[], int arraySize, int key)
 {
 	// Find position of element to be deleted
-	int pos = findElement(arr, n, key);
+	int pos = findElement(arr, arraySize, key);
 
 	if (pos == -1) {
 		cout << "Element not found";
-		return n;
+		return arraySize;
 	}
 
 	// Deleting element
-	for (int i = pos; i < n - 1; i++)
+	for (int i = pos; i < arraySize - 1; i++)
 		arr[i] = arr[i + 1];
 
-	return n - 1;
+	return arraySize - 1;
 }
 
 // Function to implement search operation
-int findElement(int arr[], int n, int key)
+// Straight up linear search
+int findElement(int arr[], int arraySize, int key)
 {
-	for (int i; = 0; i < n; i++)
+	for (int i; = 0; i < arraySize; i++)
 		if (arr[i] == key)
 			return i;
 
@@ -582,19 +583,19 @@ int main()
 	int i;
 	int arr[] = { 10, 50, 30, 40, 20 };
 
-	int n = sizeof(arr) / sizeof(arr[0]);
+	int arraySize = sizeof(arr) / sizeof(arr[0]);
 	int key = 30;
 
 	cout << "Array before deletion\n";
-	for (i = 0; i < n; i++)
+	for (i = 0; i < arraySize; i++)
 		cout << arr[i] << " ";
 	
 
 	// Function call
-	n = deleteElement(arr, n, key);
+	arraySize = deleteElement(arr, arraySize, key);
 
 	cout << "\n\nArray after deletion\n";
-	for (i = 0; i < n; i++)
+	for (i = 0; i < arraySize; i++)
 		cout << arr[i] << " ";
 
 	return 0;
@@ -672,7 +673,7 @@ int main() {
   - Average Case --> 0(log N)
   - Worst Case --> 0(log N)
 #### Advantages of binary search
-  - Must faster than ```linear search```
+  - Much faster than ```linear search```
     - Especially for larger arrays
   - More efficient than other search algorithms with similar time complexities  
     - Algorithms like ```interpolation or exponential search ```
@@ -714,9 +715,15 @@ int insertSorted(int arr[], int n, int key, int capacity)
 		return n; 
 
 	int i; 
+  /*
+    Start at the end of the array
+    Moves from right to left until it finds an element smaller than the key
+  */
 	for (i = n - 1; (i >= 0 && arr[i] > key); i--) 
+    // Moves one position to the right
 		arr[i + 1] = arr[i]; 
 
+  // Ensures the key is placed to the RIGHT 
 	arr[i + 1] = key; 
 
 	return (n + 1); 
@@ -745,5 +752,79 @@ int main()
 } 
 
 // This code is contributed by SHUBHAMSINGH10
+
+```
+
+## Delete in a sorted array
+
+![alt text](../../Screenshots/delete.png)
+
+```cpp
+// C++ program to implement delete operation in a 
+// sorted array 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// To search a key to be deleted 
+int binarySearch(int arr[], int low, int high, int key); 
+
+/* Function to delete an element */
+int deleteElement(int arr[], int n, int key) 
+{ 
+	// Use binary search to look for the element to be deleted
+	int pos = binarySearch(arr, 0, n - 1, key); 
+
+	if (pos == -1) 
+  { 
+		cout << "Element not found"; 
+		return n; 
+	} 
+
+	// Deleting element 
+  // For loop starts at the end of the array
+  // Then iterates to the left 
+	int i; 
+	for (i = pos; i < n - 1; i++) 
+    // Copies the element at 'i+1' to index 'i'
+    // Pretty much shifts everything to the left
+		arr[i] = arr[i + 1]; 
+
+	return n - 1; 
+} 
+
+int binarySearch(int arr[], int low, int high, int key) 
+{ 
+	if (high < low) 
+		return -1; 
+	int mid = (low + high) / 2; 
+	if (key == arr[mid]) 
+		return mid; 
+	if (key > arr[mid]) 
+		return binarySearch(arr, (mid + 1), high, key); 
+	return binarySearch(arr, low, (mid - 1), key); 
+} 
+
+// Driver code 
+int main() 
+{ 
+	int i; 
+	int arr[] = { 10, 20, 30, 40, 50 }; 
+
+	int n = sizeof(arr) / sizeof(arr[0]); 
+	int key = 30; 
+
+	cout << "Array before deletion\n"; 
+	for (i = 0; i < n; i++) 
+		cout << arr[i] << " "; 
+
+	// Function call 
+	n = deleteElement(arr, n, key); 
+
+	cout << "\n\nArray after deletion\n"; 
+	for (i = 0; i < n; i++) 
+		cout << arr[i] << " "; 
+} 
+
+// This code is contributed by shubhamsingh10
 
 ```

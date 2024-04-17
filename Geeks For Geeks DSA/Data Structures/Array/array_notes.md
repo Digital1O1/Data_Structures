@@ -681,9 +681,9 @@ int main() {
   - Array needs to be sorted
   - Data being searched needs to be stored in contguous memory locations 
   - Elements of the array need to be comparable
-    - Aka, they need to be ordered
+    - Aka, they need to be `ordered`
 #### Applications of Binary search
-- Can be used as building block for more complex algorithms used in ML
+- Can be used as building block for more complex alg orithms used in ML
   - Training neural networks
   - Finding optimal hyperparameters for a model
 - Searching a database
@@ -704,48 +704,60 @@ int main() {
 #include <bits/stdc++.h> 
 using namespace std; 
 
-// Inserts a key in arr[] of given capacity. n is current 
-// size of arr[]. This function returns n+1 if insertion 
-// is successful, else n. 
-int insertSorted(int arr[], int n, int key, int capacity) 
+// Inserts a key in arr[] of given capacity. sizeOfArray is current 
+// size of arr[]. This function returns sizeOfArray+1 if insertion 
+// is successful, else sizeOfArray. 
+int insertSorted(int arr[], int sizeOfArray, int key, int capacity) 
 { 
-	// Cannot insert more elements if n is already 
+	// Cannot insert more elements if sizeOfArray is already 
 	// more than or equal to capacity 
-	if (n >= capacity) 
-		return n; 
+	if (sizeOfArray >= capacity) 
+		return sizeOfArray; 
 
-	int i; 
   /*
     Start at the end of the array
     Moves from right to left until it finds an element smaller than the key
+
+    Remember sizeOfArray = 6
+
+     Moves one position to the right if the variable i is greater than/equal to 0 and if the current array value is greater than the key that's equal to 26
   */
-	for (i = n - 1; (i >= 0 && arr[i] > key); i--) 
-    // Moves one position to the right
-		arr[i + 1] = arr[i]; 
+	for (int i = sizeOfArray - 1; (i >= 0 && arr[i] > key); i--) 
+    // Then take the current array element and store it one position to the 'right'
+    arr[i + 1] = arr[i]; 
 
   // Ensures the key is placed to the RIGHT 
 	arr[i + 1] = key; 
 
-	return (n + 1); 
+	return (sizeOfArray + 1); 
 } 
+
+/*
+  Before Insertion: 12  16  20  40  50  70
+  Element position  [0] [1] [2] [3] [4] [5]
+  After Insertion: 12 16 20 26 40 50 70 
+                            ^
+                            |
+                         The key
+*/
 
 /* Driver code */
 int main() 
 { 
 	int arr[20] = { 12, 16, 20, 40, 50, 70 }; 
 	int capacity = sizeof(arr) / sizeof(arr[0]); 
-	int n = 6; 
-	int i, key = 26; 
+	int sizeOfArray = 6; 
+	int key = 26; 
 
 	cout << "\nBefore Insertion: "; 
-	for (i = 0; i < n; i++) 
+	for (int i = 0; i < sizeOfArray; i++) 
 		cout << arr[i] << " "; 
 
 	// Function call 
-	n = insertSorted(arr, n, key, capacity); 
+	sizeOfArray = insertSorted(arr, sizeOfArray, key, capacity); 
 
 	cout << "\nAfter Insertion: "; 
-	for (i = 0; i < n; i++) 
+	for (i = 0; i < sizeOfArray; i++) 
 		cout << arr[i] << " "; 
 
 	return 0; 
@@ -755,6 +767,42 @@ int main()
 
 ```
 
+```
+Another visualization of the program above
+
+Before Insertion: 12 16 20 40 50 70
+
+sizeOfArray = 6
+key = 26
+```
+
+```cpp
+for (i = sizeOfArray - 1; (i >= 0 && arr[i] > key); i--) 
+		arr[i + 1] = arr[i]; 
+
+	arr[i + 1] = key; 
+
+	return (sizeOfArray + 1); 
+```
+```
+Iteration 1:      12 16 20 40 50 [70]
+                                  ^
+                                 Key
+
+Iteration 2:      12 16 20 40 [50] 70
+                               ^
+                              Key
+
+Iteration 3:      12 16 20 [40] 50 70
+                             ^
+                            Key
+
+Iteration 4:      12 16 [26] 20 40 50 70
+                         ^
+                        Key
+
+After Insertion:  12 16 20 26 40 50 70
+```
 ## Delete in a sorted array
 
 ![alt text](../../Screenshots/delete.png)
@@ -783,9 +831,9 @@ int deleteElement(int arr[], int n, int key)
 	// Deleting element 
   // For loop starts at the end of the array
   // Then iterates to the left 
-	int i; 
-	for (i = pos; i < n - 1; i++) 
-    // Copies the element at 'i+1' to index 'i'
+	
+	for (int i = pos; i < n - 1; i++) 
+    // Copies the element starting at the end of the array at 'i+1' to index 'i'
     // Pretty much shifts everything to the left
 		arr[i] = arr[i + 1]; 
 
@@ -824,7 +872,58 @@ int main()
 	for (i = 0; i < n; i++) 
 		cout << arr[i] << " "; 
 } 
-
-// This code is contributed by shubhamsingh10
-
 ```
+<br>
+
+---
+
+<br>
+
+
+## [Array | Sorting](https://www.geeksforgeeks.org/array-data-structure/array-sorting/?ref=lbp)
+
+
+### Important terminology related to sorting
+
+In-Place Sorting
+- Arranging elements w/o using extra space 
+- Stuck with using give narray
+
+Stability of Sorting
+- Said to be stable if the relative order of the same valued elements is preserved in the final array
+  - Or in short : The order of the same valued elements in the sorted array is the same in the original array
+
+### Commonly used sorting algorithms
+- Bubble Sort
+  - Simplest one 
+  - Works by repeatedly swapping adjacent elements if they're in the wrong order
+  - Not suitable for large arrays since it's `average` and `worst-case` time complexity is high
+- Selection Sort
+  - Find the minimum eleemnt in every iteration --> Place it in the beginning of the array at the first index
+  - This algorithm gets divided into `sorted` and `unsorted` subarray
+  - Not great to use with large arrays
+- Insertion sort
+  - It's kinda like sorting cards that are in your hand 
+  - The array is `viritually split` into a `sorted` and `unsorted` part
+    - Values from the `unsorted part` are picked/placedi n the correct position in the `sorted` part
+  - Not great to use on large arrays
+- Merge sort
+  - Based on [divide and conqurer](https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm-data-structure-and-algorithm-tutorials/) paradigm
+  - The array is repeatedly divided into two equal halves
+    - Then combined in a sorted manner
+  - Great to use for large arrays
+- Quick Sort
+  - Based on `divide and conquer`
+  - Array is `divided into subarrays` by selecting a `piviot element` 
+    - The piviot element is a element selected from the array
+  - Commonly used
+- Heap sort
+  - Is a `comparison-based` sorting technique based on [binary heat data structure](https://www.geeksforgeeks.org/binary-heap/)
+  - Similar to `selection sort`
+    - Where we find the first `minimum element` then place it at the beginning 
+    - Then repeat that for the remaining elements
+- Counting Sort
+  - Based on `keys` between a specific range
+  - Works by counting the number of elements having a `distinct key value`; kinda like hashing 
+    - Then do some arithmetic to calculate the position of each element in the output sequence
+  - Can be efficient if the range of inputs are small relative tot he size of the input array 

@@ -3,18 +3,19 @@
 # After sorting:   1 2 2 3 4 4 5
 
 - **Iteration 1:**
-  - `i = 1`, `arr[i] = 2`, `uniqueIndex = 0`, `arr[uniqueIndex] = 1`, `arr[1] != arr[0]` (true)
+  - `i = 1`, `arr[i] == arr[1] = 2`, `uniqueIndex = 0`, `arr[uniqueIndex] == arr[position 0] = 1`, `arr[1] != arr[0] --> 2 != 1` (true)
     - Increment uniqueIndex: `uniqueIndex = 1`
     - Copy `arr[1]` to `arr[1]`: `arr = {1, 2, 2, 3, 4, 4, 5}`
+      - arr[i] == arr[1] == arr[2]
   - **After iteration 1:** Unique elements: 1 2
 
 - **Iteration 2:**
   - `i = 2`, `arr[i] = 2`, `uniqueIndex = 1`, `arr[uniqueIndex] = 2`, `arr[2] == arr[1]` (true)
     - Duplicate found, continue
-  - **After iteration 2:** Unique elements: 1 2
+  - **After iteration 2:** Unique elements: 1 2 `everything stayed the same`
 
 - **Iteration 3:**
-  - `i = 3`, `arr[i] = 3`, `uniqueIndex = 1`, `arr[uniqueIndex] = 2`, `arr[3] != arr[1]` (true)
+  - `i = 3`, `arr[i] == arr[3] = 3`, `uniqueIndex = 1`, `arr[uniqueIndex] == arr[2] = 2`, `arr[3] != arr[1]` == `3 != 2` (true)
     - Increment uniqueIndex: `uniqueIndex = 2`
     - Copy `arr[3]` to `arr[2]`: `arr = {1, 2, 3, 3, 4, 4, 5}`
   - **After iteration 3:** Unique elements: 1 2 3

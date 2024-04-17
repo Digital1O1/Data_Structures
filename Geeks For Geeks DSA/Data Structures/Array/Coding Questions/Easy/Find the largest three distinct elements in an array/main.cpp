@@ -16,6 +16,7 @@ int main()
         std::cout << "At position " << i << " value : " << arr[i] << std::endl;
     }
 
+    // Iterates directly to the 3rd largest element in the array
     for (int i = (sizeArray / 2); i < sizeArray; i++)
     {
         std::cout << arr[i] << " ";

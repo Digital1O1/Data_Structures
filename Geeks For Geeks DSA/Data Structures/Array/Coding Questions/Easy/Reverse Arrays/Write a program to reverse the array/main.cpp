@@ -14,9 +14,10 @@ int main()
 {
     int original_array[] = {1, 2, 3, 4, 5};
     int sizeOriginalArray = sizeof(original_array) / sizeof(original_array[0]);
-    int array_reversed[sizeOriginalArray] = {};
+    int array_reversed[sizeOriginalArray];
     int reverseCounter = 0;
 
+    // Start at the end of
     for (int forwardCounter = sizeOriginalArray - 1; forwardCounter >= 0; --forwardCounter)
     {
 

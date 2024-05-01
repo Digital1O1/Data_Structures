@@ -20,7 +20,8 @@ int main()
     // Start at the end of
     for (int forwardCounter = sizeOriginalArray - 1; forwardCounter >= 0; --forwardCounter)
     {
-
+        // Have the original array decrement with forwardCounter
+        // While saving the new array by incrementing reverseCounter
         array_reversed[reverseCounter++] = original_array[forwardCounter];
     }
 

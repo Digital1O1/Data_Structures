@@ -831,10 +831,11 @@ int deleteElement(int arr[], int n, int key)
 	// Deleting element 
   // For loop starts at the end of the array
   // Then iterates to the left 
-	
+  // For loop starts at the element that's going to be deleted
+  // Iterates through entire array up to the SECOND TO LAST ELEMENT
+  // Each element at position 'i' replaced with element at position 'i+1' that pretty uch shifts elements AFTER the deleted postition one element TO THE LEFT
+  // Once loop is done, last element stays unchanged thus 'removing' the element at the 'pos' position
 	for (int i = pos; i < n - 1; i++) 
-    // Copies the element starting at the end of the array at 'i+1' to index 'i'
-    // Pretty much shifts everything to the left
 		arr[i] = arr[i + 1]; 
 
 	return n - 1; 
@@ -871,6 +872,13 @@ int main()
 	cout << "\n\nArray after deletion\n"; 
 	for (i = 0; i < n; i++) 
 		cout << arr[i] << " "; 
+/*
+  Array before deletion
+  10 20 30 40 50 
+
+  Array after deletion
+  10 20 40 50 
+*/
 } 
 ```
 <br>
@@ -887,7 +895,7 @@ int main()
 
 In-Place Sorting
 - Arranging elements w/o using extra space 
-- Stuck with using give narray
+- Stuck with using give array
 
 Stability of Sorting
 - Said to be stable if the relative order of the same valued elements is preserved in the final array
@@ -899,7 +907,7 @@ Stability of Sorting
   - Works by repeatedly swapping adjacent elements if they're in the wrong order
   - Not suitable for large arrays since it's `average` and `worst-case` time complexity is high
 - Selection Sort
-  - Find the minimum eleemnt in every iteration --> Place it in the beginning of the array at the first index
+  - Find the minimum element in every iteration --> Place it in the beginning of the array at the first index
   - This algorithm gets divided into `sorted` and `unsorted` subarray
   - Not great to use with large arrays
 - Insertion sort

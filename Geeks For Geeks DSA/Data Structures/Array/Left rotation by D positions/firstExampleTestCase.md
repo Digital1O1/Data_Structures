@@ -20,11 +20,11 @@
 
 ## Explanation:
 
-In each iteration of the loop, the value at index j is moved to j + rotationDistance. 
+In each iteration of the loop, the value at index `j` is moved to `j + rotationDistance`. 
 
-If j + rotationDistance exceeds the array size, it wraps around to the beginning of the array (using modulo operation).
+If `j + rotationDistance` exceeds the array size, it wraps around to the beginning of the array (using modulo operation).
 
-The process continues until k (the new index) becomes equal to i (the starting index of the set). 
+The process continues until `k` (the new index) becomes equal to `i` (the starting index of the set). 
 
 This indicates that the current set has been rotated completely.
 

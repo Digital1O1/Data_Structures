@@ -415,8 +415,7 @@ int main()
 	return 0;
 }
 
-// This code is contributed
-// by Akanksha Rai
+
 
 ```
 
@@ -453,11 +452,11 @@ int main()
 	int arr[20] = { 12, 16, 20, 40, 50, 70 };
   // capacity = 6 currently
 	int capacity = sizeof(arr) / sizeof(arr[0]);
-	int n = 6;
+	int arraySize = 6;
 	int i, key = 26;
 
 	cout << "Before Insertion: ";
-	for (i = 0; i < n; i++)
+	for (i = 0; i < arraySize; i++)
 		cout << arr[i] << " ";
 
 	// Inserting key since 'n' is already at the end of the list
@@ -683,7 +682,7 @@ int main() {
   - Elements of the array need to be comparable
     - Aka, they need to be `ordered`
 #### Applications of Binary search
-- Can be used as building block for more complex alg orithms used in ML
+- Can be used as building block for more complex algorithms used in ML
   - Training neural networks
   - Finding optimal hyperparameters for a model
 - Searching a database
@@ -814,7 +813,7 @@ After Insertion:  12 16 20 26 40 50 70
 using namespace std; 
 
 // To search a key to be deleted 
-int binarySearch(int arr[], int low, int high, int key); 
+int binarySearch(int arr[], int lowPTR, int highPTR, int key); 
 
 /* Function to delete an element */
 int deleteElement(int arr[], int n, int key) 
@@ -833,7 +832,7 @@ int deleteElement(int arr[], int n, int key)
   // Then iterates to the left 
   // For loop starts at the element that's going to be deleted
   // Iterates through entire array up to the SECOND TO LAST ELEMENT
-  // Each element at position 'i' replaced with element at position 'i+1' that pretty uch shifts elements AFTER the deleted postition one element TO THE LEFT
+  // Each element at position 'i' replaced with element at position 'i+1' that pretty much shifts elements AFTER the deleted postition one element TO THE LEFT
   // Once loop is done, last element stays unchanged thus 'removing' the element at the 'pos' position
 	for (int i = pos; i < n - 1; i++) 
 		arr[i] = arr[i + 1]; 
@@ -841,16 +840,16 @@ int deleteElement(int arr[], int n, int key)
 	return n - 1; 
 } 
 
-int binarySearch(int arr[], int low, int high, int key) 
+int binarySearch(int arr[], int lowPTR, int highPTR, int key) 
 { 
-	if (high < low) 
+	if (highPTR < lowPTR) 
 		return -1; 
-	int mid = (low + high) / 2; 
+	int mid = (lowPTR + highPTR) / 2; 
 	if (key == arr[mid]) 
 		return mid; 
 	if (key > arr[mid]) 
-		return binarySearch(arr, (mid + 1), high, key); 
-	return binarySearch(arr, low, (mid - 1), key); 
+		return binarySearch(arr, (mid + 1), highPTR, key); 
+	return binarySearch(arr, lowPTR, (mid - 1), key); 
 } 
 
 // Driver code 
@@ -935,3 +934,122 @@ Stability of Sorting
   - Works by counting the number of elements having a `distinct key value`; kinda like hashing 
     - Then do some arithmetic to calculate the position of each element in the output sequence
   - Can be efficient if the range of inputs are small relative tot he size of the input array 
+
+<br>
+
+# [Print array after it is right rotated K times](https://www.geeksforgeeks.org/print-array-after-it-is-right-rotated-k-times/?ref=lbp)
+
+
+## First approach
+
+### Step 1 : Take mod of K by N
+- Since every `N` rotation the array will become the same as the intial array
+### Step 2 : Iterate the array from `i=0` to `i = N-1`
+- Check 
+  - If `i < K`
+    - Then print `rightmost Kth` element : `(a [N + i - K])`
+  - Otherwise
+    - Print array after `K` elements : `(a [i - K])`
+
+### Example
+
+```cpp
+// C++ implementation of right rotation 
+// of an array rightRotations number of times
+#include<bits/stdc++.h>
+using namespace std;
+
+// Function to rightRotate array
+// arraySize = 5
+// rightRotations = 2
+void RightRotate(int originalArray[], int arraySize, int rightRotations)
+{
+    
+    // If rotation is greater 
+    // than size of array
+
+    // First time : rightRotation = 2 | arraySize = 4 --> rightRotation = 2 % 4 --> rightRotation = 2
+    rightRotations = rightRotations % arraySize;
+
+    for(int i = 0; i < arraySize; i++)
+    {
+       // First time : i = 0 | rightRotation = 2 --> 0 < 2 --> true
+       // So then cout << originalArray [ 4 + 0 - 2] --> originalArray[2] --> 3
+       if(i < rightRotations)
+       {
+           
+           // Printing rightmost 
+           // kth elements
+           cout << originalArray[arraySize + i - rightRotations] << " ";
+           
+       }
+       else
+       {
+           
+           // Prints array after
+           // 'rightRotations' elements
+
+           // When `i` = 2 you'll end up here
+           // if(2 < 2) --> false --> originalArray[2-2] --> originalArray[0] --> 1
+           cout << (originalArray[i - rightRotations]) << " ";
+       }
+    }
+    cout << "\n";
+}
+    
+// Driver code
+int main()
+{
+    int Array[] = { 1, 2, 3, 4, 5 };
+    int arraySize = sizeof(Array) / sizeof(Array[0]);
+    int rightRotations = 2;
+    
+    RightRotate(Array, arraySize, rightRotations);
+}
+
+
+```
+
+### Detailed Step-by-Step Table For Example Above
+
+#### Initial Setup:
+- Original Array: \[1, 2, 3, 4\]
+- Array Size: 4
+- Right Rotations: 2 (after applying `rightRotations % arraySize`)
+
+#### Intermediate Steps:
+
+| Step | i  | Condition (i < rightRotations) | Calculated Index               | Value Printed | Result Array So Far |
+|------|----|--------------------------------|---------------------------------|---------------|---------------------|
+| 1    | 0  | true                           | `Array[arraySize + 0 - rightRotations]` = 2  | 3             | [3]                 |
+| 2    | 1  | true                           | `Array[arraySize + 1 - rightRotations]` = 3  | 4             | [3, 4]              |
+| 3    | 2  | false                          | `Array[2 - rightRotations]` = 0              | 1             | [3, 4, 1]           |
+| 4    | 3  | false                          | `Array[3 - rightRotations]` = 1              | 2             | [3, 4, 1, 2]        |
+
+### Explanation:
+
+1. **Step 1 (i = 0)**:
+   - Condition: `i < rightRotations` is true (0 < 2)
+   - Calculated Index: `arraySize + i - rightRotations` = `4 + 0 - 2` = 2
+   - Value Printed: `Array[2]` = 3
+   - Result Array: [3]
+
+2. **Step 2 (i = 1)**:
+   - Condition: `i < rightRotations` is true (1 < 2)
+   - Calculated Index: `arraySize + i - rightRotations` = `4 + 1 - 2` = 3
+   - Value Printed: `Array[3]` = 4
+   - Result Array: [3, 4]
+
+3. **Step 3 (i = 2)**:
+   - Condition: `i < rightRotations` is false (2 < 2)
+   - Calculated Index: `i - rightRotations` = `2 - 2` = 0
+   - Value Printed: `Array[0]` = 1
+   - Result Array: [3, 4, 1]
+
+4. **Step 4 (i = 3)**:
+   - Condition: `i < rightRotations` is false (3 < 2)
+   - Calculated Index: `i - rightRotations` = `3 - 2` = 1
+   - Value Printed: `Array[1]` = 2
+   - Result Array: [3, 4, 1, 2]
+
+### Final Result:

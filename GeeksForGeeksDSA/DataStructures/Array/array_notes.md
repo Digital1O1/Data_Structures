@@ -489,15 +489,15 @@ using namespace std;
 
 // Function to insert element
 // at a specific position
-void insertElement(int arr[], int sizeOfArray, int valueToBeInserted, int pos)
+void insertElement(int arr[], int sizeOfArray, int valueToBeInserted, int desieredPosition)
 {
 	// Iterates from the end of the array to the actual position 
-	for (int i = sizeOfArray - 1; i >= pos; i--)
+	for (int i = sizeOfArray - 1; i >= desieredPosition; i--)
     // Does the shifting towards the right
     // Copies the value of the elements at 'i' to the position next to it
 		arr[i + 1] = arr[i];
 
-	arr[pos] = valueToBeInserted;
+	arr[desieredPosition] = valueToBeInserted;
 }
 
 // Driver's code
@@ -512,10 +512,10 @@ int main()
 
 	cout<<endl;
 
-	int valueToBeInserted = 10, pos = 2;
+	int valueToBeInserted = 10, desieredPosition = 2;
 
 	// Function call
-	insertElement(arr, sizeOfArray, valueToBeInserted, pos);
+	insertElement(arr, sizeOfArray, valueToBeInserted, desieredPosition);
   
   // Needed to reflect the actual size of the array after the insertion of the new element
   sizeOfArray++;

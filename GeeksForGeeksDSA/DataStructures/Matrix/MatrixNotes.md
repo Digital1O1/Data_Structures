@@ -114,10 +114,9 @@ A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}
 
 `129 - (-44) - (-77) = 129 + 44 + 77 = 250`
 
-Therefore, the determinant of matrix A is 250.
+Therefore, the determinant of matrix A is `250`.
 
-
-#### **Sarrus Rule Pattern : Part 2**
+#### **Shortcut for Sarrus Rule Pattern**
 
 ##### Given a 3x3 matrix A 
 
@@ -668,7 +667,7 @@ const int setColumn = 3;
 void traverse(int arr[][setColumn], int row_, int column_)
 {
 	// If the current position is the bottom-right corner of
-	// the matrix
+	// the matrix use recursion to call traverse() again
    // if( 0 == 3 - 1 && 0 == 3 - 1) --> if(0 == 2 && 0 == 2)
 	if (row_ == setRow - 1 && column_ == setColumn - 1) 
    {
@@ -744,7 +743,7 @@ Output:
 
 ### Use nested loops 
 - To move elements in four directions 
-  - One step ata time for each layer 
+  - One step at a time for each layer 
   - Starting with `outermost` layer
   - This stimulates the clockwise rotation by rotating each 'ring' or layer of the matrix
 ### Steps

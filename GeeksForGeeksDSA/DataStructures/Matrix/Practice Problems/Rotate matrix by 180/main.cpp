@@ -1,7 +1,9 @@
+// https://www.geeksforgeeks.org/print-matrix-in-zig-zag-fashion/
+
 #include <iostream>
 #include <vector>
 using namespace std;
-// #define num_rows 3
+// #define totalRows 3
 #define SET_COLUMNS 3
 
 // https://www.geeksforgeeks.org/rotate-matrix-180-degree/
@@ -61,46 +63,37 @@ int main()
     */
 
     // Number of rows
-    int num_rows = (sizeof(arr) / sizeof(arr[0]));
+    int totalRows = (sizeof(arr) / sizeof(arr[0]));
 
     // Number of columns
-    int num_columns = (sizeof(arr[0]) / sizeof(arr[0][0]));
+    int totalColums = (sizeof(arr[0]) / sizeof(arr[0][0]));
 
-    std::cout << "Size of array : " << num_rows << " " << num_columns << std::endl;
+    std::cout << "Size of array : " << totalRows << " " << totalColums << std::endl;
 
     printMatrix(arr);
 
-    // Subtracting rom num_rows is needed for the swapping logic for 180 degrees to work since we're accessing the element at the opposite position of a given element
-    for (int currentRow = 0; currentRow < num_rows - 1; currentRow++)
+    // Subtracting from totalRows is needed for the swapping logic for 180 degrees to work since we're accessing the element at the opposite position of a given element
+    for (int currentRow = 0; currentRow < totalRows - 1; currentRow++)
     {
-        for (int currentColumn = 0; currentColumn < num_columns; currentColumn++)
+        for (int currentColumn = 0; currentColumn < totalColums; currentColumn++)
         {
             std::cout << "Current iteration \trow : " << currentRow << "\tcolumn : " << currentColumn << std::endl;
 
-            // int temp = arr[currentRow][currentColumn];
-
-            // Original
-            // int temp = arr[currentRow][currentColumn];
-            //  arr[currentRow][currentColumn] = arr[num_rows][num_columns];
-            // arr[currentRow][currentColumn] = arr[num_rows][num_columns];
-            // arr[num_rows][num_columns] = temp;
-
             /*
-                Starting point currentRow = 0 | currentColumn = 0
-                temp = arr[0][0] --> 1
-                arr[0][0] = arr[3-0-1][3-0-1] --> arr[0][0] = arr[2][2] --> arr[0][0] == 9 swap
-                arr[3-0-1][3-0-1] = 1 --> arr[2][2] = 1 swap
+                If currentRow and currentColumn = 0
 
+                int temp = arr[0][0];
 
-                Starting point currentRow = 0 | currentColumn = 1
-                temp = arr[0][1] --> 2
-                arr[0][1] = arr[3-1-1][3-1-1] --> arr[0][0] = arr[1][1] --> arr[0][0] == 9 swap
-                arr[3-0-1][3-0-1] = 1 --> arr[2][2] = 1 swap
+                arr[0][0] = arr[3- 0 - 1][3 - 0 - 1];
+                arr[0][0] = arr[2][2]
+
+                arr[3 - 0 - 1][3 - 0 - 1] = temp;
+                arr[2][2] = temp;
+
             */
-
             int temp = arr[currentRow][currentColumn];
-            arr[currentRow][currentColumn] = arr[num_rows - currentRow - 1][num_columns - currentColumn - 1];
-            arr[num_rows - currentRow - 1][num_columns - currentColumn - 1] = temp;
+            arr[currentRow][currentColumn] = arr[totalRows - currentRow - 1][totalColums - currentColumn - 1];
+            arr[totalRows - currentRow - 1][totalColums - currentColumn - 1] = temp;
 
             // std::cout << " ---------------" << std::endl;
             // printMatrix(arr);

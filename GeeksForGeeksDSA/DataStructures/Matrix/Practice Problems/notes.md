@@ -30,7 +30,7 @@ For each element, you're swapping it with its opposite, and then printing the ma
 
 ## Chart: Swap Process
 
-| Step | currentRow | currentColumn | Position 1 (i, j) | Position 2 (num_rows - i - 1, num_columns - j - 1) | Swap Values | Matrix After Swap |
+| Step | currentRow | currentColumn | Position 1 (i, j) | Position 2 (num_rows - currentRow - 1, num_columns - currentColumn - 1) | Swap Values | Matrix After Swap |
 |------|------------|---------------|-------------------|----------------------------------------------------|--------------|------------------|
 | 1    | 0          | 0             | (0, 0)            | (2, 2)                                            | 1 ↔ 9        | 9 2 3 <br> 4 5 6 <br> 7 8 1 |
 | 2    | 0          | 1             | (0, 1)            | (2, 1)                                            | 2 ↔ 8        | 9 8 3 <br> 4 5 6 <br> 7 2 1 |

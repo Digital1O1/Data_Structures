@@ -1,4 +1,4 @@
-# [Matrix Data Structure](https://www.geeksforgeeks.org/matrix/)
+Can# [Matrix Data Structure](https://www.geeksforgeeks.org/matrix/)
 
 ## What is a Matrix?
 
@@ -38,6 +38,111 @@ Matrices support common mathematical operations such as:
 3. **Geometric Interpretation**: 
    - For a 2x2 matrix, the absolute value of the determinant represents the **area of a parallelogram** formed by its column vectors.
    - For a 3x3 matrix, it represents the **volume of the parallelepiped** formed by its column vectors.
+
+# Calculating the Inverse of a Matrix
+
+## The Inverse of a Matrix A
+
+- A matrix \( A \) is said to be invertible if it has an inverse, denoted as \( A^{-1} \).
+- The inverse of a matrix \( A \) is a matrix that, when multiplied by \( A \), results in the identity matrix \( I \).
+
+## Conditions for Invertibility
+
+- For a square matrix (same number of rows and columns), the determinant must be non-zero.
+- Not all matrices have an inverse; a matrix must meet these two conditions to be invertible.
+
+## Steps to Calculate the Inverse of a Matrix
+
+### Step 1: Verify the Matrix is Square
+
+- Check if the matrix \( A \) has the same number of rows and columns.
+- Example: A \( 3 \times 3 \) matrix is square, but a \( 3 \times 2 \) matrix is not.
+
+### Step 2: Check the Determinant
+
+- Compute the determinant of \( A \) using cofactor expansion or other determinant rules.
+- If \( \text{det}(A) = 0 \), the matrix is singular and does not have an inverse.
+
+### Step 3: Compute the Cofactor Matrix
+
+- For each element \( a_{ij} \) of the matrix, compute its cofactor:
+  \[
+  \text{Cofactor}(a_{ij}) = (-1)^{i+j} \cdot \text{det}(M_{ij})
+  \]
+  - Where \( M_{ij} \) is the minor matrix obtained by removing the \( i \)-th row and \( j \)-th column.
+
+### Step 4: Construct the Adjugate Matrix
+
+- The adjugate (or adjoint) matrix is the transpose of the cofactor matrix:
+  \[
+  \text{Adj}(A) = \text{Cofactor}(A)^T
+  \]
+
+### Step 5: Divide by the Determinant
+
+- The inverse is given by:
+  \[
+  A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
+  \]
+
+## Example: Inverse of a 2x2 Matrix
+
+Let \( A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \).
+
+### Step 1: Check if \( \text{det}(A) \neq 0 \)
+
+- If \( ad - bc = 0 \), the matrix is not invertible.
+
+### Step 2: Compute the Cofactor Matrix
+
+- \[
+\text{Cofactor}(A) = \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+\]
+
+### Step 3: Transpose the Cofactor Matrix (Adjugate)
+
+- \[
+  \text{Adj}(A) = \text{Cofactor}(A)^T = \begin{bmatrix} d & -c \\ -b & a \end{bmatrix}
+\]
+
+### Step 4: Divide by \( \text{det}(A) \)
+
+- \[
+A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
+\]
+  - Where \( \text{det}(A) = ad - bc \).
+
+## Example: Inverse of a 3x3 Matrix
+
+For a \( 3 \times 3 \) matrix:
+
+\[
+A = \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{bmatrix}
+\]
+
+### Step 1: Compute the Determinant
+
+- Use cofactor expansion along the first row:
+  \[
+  \text{det}(A) = a_{11} \cdot \text{det}(M_{11}) - a_{12} \cdot \text{det}(M_{12}) + a_{13} \cdot \text{det}(M_{13})
+  \]
+
+### Step 2: Compute the Cofactor Matrix
+
+- Calculate the cofactor for each element \( a_{ij} \).
+
+### Step 3: Construct the Adjugate Matrix
+
+- Transpose the cofactor matrix.
+
+### Step 4: Divide by \( \text{det}(A) \)
+
+- \[
+A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
+\]
+  - Where \( \text{det}(A) \) is computed using cofactor expansion.
+
+
 
 ### How to Calculate the Determinant
 
@@ -89,7 +194,7 @@ A = \begin{pmatrix} a11 & a12 & a13 \\ a21 & a22 & a23 \\ a31 & a32 & a33
    * Add the first two rows.
    * Subtract the third row.
 
-<br>
+<!-- <br>
 
 ### Example Calculation using the `Sarrus rule`
 \[
@@ -116,7 +221,7 @@ A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}
 
 Therefore, the determinant of matrix A is `250`.
 
-#### **Shortcut for Sarrus Rule Pattern**
+#### **Shortcut for Sarrus Rule Pattern** -->
 
 ##### Given a 3x3 matrix A 
 
@@ -128,7 +233,7 @@ A = \begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i
 
 The determinant of A can be calculated using Sarrus' Rule as follows:
 
-#### Formula
+#### Formula to find 3x3 determinate 
 
 ```markdown
 det(A) = a(ei - fh) - b(di - fg) + c(dh - eg)

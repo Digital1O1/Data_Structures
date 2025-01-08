@@ -73,6 +73,7 @@ int main()
     printMatrix(arr);
 
     // Subtracting from totalRows is needed for the swapping logic for 180 degrees to work since we're accessing the element at the opposite position of a given element
+    // The reason we're subtracting totalRows -1 is so we stop at the [2]nd row since we start at an index of 0
     for (int currentRow = 0; currentRow < totalRows - 1; currentRow++)
     {
         for (int currentColumn = 0; currentColumn < totalColums; currentColumn++)
@@ -80,15 +81,23 @@ int main()
             std::cout << "Current iteration \trow : " << currentRow << "\tcolumn : " << currentColumn << std::endl;
 
             /*
+                --------------- EXAMPLE ---------------
+
+                Input:      
+                1  2  3
+                4  5  6
+                7  8  9
+                
                 If currentRow and currentColumn = 0
 
-                int temp = arr[0][0];
+                int temp = arr[0][0]; // value 1
 
                 arr[0][0] = arr[3- 0 - 1][3 - 0 - 1];
-                arr[0][0] = arr[2][2]
+                arr[0][0] = arr[2][2] //  Swap 1 for 9
 
                 arr[3 - 0 - 1][3 - 0 - 1] = temp;
-                arr[2][2] = temp;
+                arr[2][2] = temp // Swap 9 for 1
+                
 
             */
             int temp = arr[currentRow][currentColumn];

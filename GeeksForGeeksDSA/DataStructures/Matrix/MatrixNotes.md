@@ -1,12 +1,12 @@
-Can# [Matrix Data Structure](https://www.geeksforgeeks.org/matrix/)
+# [Matrix Data Structure](https://www.geeksforgeeks.org/matrix/)
 
 ## What is a Matrix?
 
 - A **2D array** arranged in rows and columns.
 - Commonly used to represent mathematical matrices.
 - Allows for efficient storage and manipulation of data in a structured format.
-- The intersection of a row and column is called a **cell**.
-- Typically used when data needs to be stored in a table or grid format.
+- The intersection of a **row** and **column** is called a **cell**.
+- Typically used when data needs to be stored in a `table` or `grid` format.
 - Each element in a matrix is identified by its **row** and **column indices**.
 
 ## Components of Matrix Data Structure
@@ -48,129 +48,324 @@ Matrices support common mathematical operations such as:
 
 ## Conditions for Invertibility
 
-- For a square matrix (same number of rows and columns), the determinant must be non-zero.
-- Not all matrices have an inverse; a matrix must meet these two conditions to be invertible.
+- For a square matrix (same number of rows and columns), the **determinant** must be **non-zero**.
+- Not all matrices have an inverse; 
+  - a matrix must meet these two conditions to be invertible.
 
-## Steps to Calculate the Inverse of a Matrix
+# Steps to Calculate the Inverse of a Matrix
 
 ### Step 1: Verify the Matrix is Square
 
-- Check if the matrix \( A \) has the same number of rows and columns.
+- Check if the matrix \( A \) has the `same number` of rows and columns.
 - Example: A \( 3 \times 3 \) matrix is square, but a \( 3 \times 2 \) matrix is not.
 
 ### Step 2: Check the Determinant
 
-- Compute the determinant of \( A \) using cofactor expansion or other determinant rules.
-- If \( \text{det}(A) = 0 \), the matrix is singular and does not have an inverse.
+- Compute the determinant of \( A \) using `cofactor expansion` or other `determinant rules`.
+- If \( \text{det}(A) = 0 \), the matrix is `singular` and `does NOT have an inverse`.
 
-### Step 3: Compute the Cofactor Matrix
 
-- For each element \( a_{ij} \) of the matrix, compute its cofactor:
-  \[
-  \text{Cofactor}(a_{ij}) = (-1)^{i+j} \cdot \text{det}(M_{ij})
-  \]
-  - Where \( M_{ij} \) is the minor matrix obtained by removing the \( i \)-th row and \( j \)-th column.
+### Step 3 : Calculate the Cofactor Matrix
+
+#### Steps to Calculate the Cofactor Matrix
+
+##### 1. Find the Minor of Each Element:
+The minor of an element \( a_{ij} \) is the determinant of the submatrix obtained by removing the \( i \)-th row and \( j \)-th column of the matrix \( A \).
+
+##### 2. Apply the Cofactor Formula:
+The cofactor \( C_{ij} \) is calculated by multiplying the minor \( M_{ij} \) by \( (-1)^{i+j} \), where \( (-1)^{i+j} \) accounts for the alternating signs based on the position of the element.
+
+#### 3. Construct the Cofactor Matrix:
+Replace each element \( a_{ij} \) in the matrix \( A \) with its corresponding cofactor \( C_{ij} \).
+
+---
+
+### Example: Cofactor Matrix for Matrix \( A \)
+
+Let’s compute the cofactor matrix for the matrix \( A \):
+
+\[
+A = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
+\]
+
+#### Step 1: Compute the Minors
+We will calculate the minors for each element in the matrix \( A \).
+
+##### 1.1 Compute the Minor for \( a_{11} = 2 \)
+
+\[
+A = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
+\]
+
+
+To compute the minor of \( a_{11} \), we remove the `1st row` and `1st column` from \( A \). The remaining submatrix is:
+
+\[
+A_{11} = \begin{bmatrix} 
+5 & 7 \\ 
+9 & 6
+\end{bmatrix}
+\]
+
+Now, compute the `determinant` of this 2x2 submatrix:
+
+\[
+A = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
+\]
+
+
+\[
+\text{det}(A_{11}) = (5)(6) - (7)(9) = 30 - 63 = -33
+\]
+
+So, the minor \( M_{11} = -33 \).
+
+##### 1.2 Compute the Minor for \( a_{12} = 4 \)
+
+\[
+A = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
+\]
+
+
+For \( a_{12} \), we remove the `1st row` and `2nd column` from \( A \). The remaining submatrix is:
+
+\[
+A_{12} = \begin{bmatrix}
+1 & 7 \\
+8 & 6
+\end{bmatrix}
+\]
+
+Now, compute the determinant of this 2x2 submatrix:
+
+\[
+\text{det}(A_{12}) = (1)(6) - (7)(8) = 6 - 56 = -50
+\]
+
+So, the minor \( M_{12} = -50 \).
+
+##### 1.3 Compute the Minor for \( a_{13} = 3 \)
+
+\[
+A = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
+\]
+
+
+For \( a_{13} \), we remove the `1st row` and `3rd column` from \( A \). The remaining submatrix is:
+
+\[
+A_{13} = \begin{bmatrix}
+1 & 5 \\
+8 & 9
+\end{bmatrix}
+\]
+
+Now, compute the determinant of this 2x2 submatrix:
+
+\[
+\text{det}(A_{13}) = (1)(9) - (5)(8) = 9 - 40 = -31
+\]
+
+So, the minor \( M_{13} = -31 \).
+
+##### 1.4 Repeat for Remaining Elements
+Now, we repeat the process for all the remaining elements of the matrix. Below are the minors for each element:
+
+- \( M_{21} = -3 \)
+- \( M_{22} = -12 \)
+- \( M_{23} = -14 \)
+- \( M_{31} = 13 \)
+- \( M_{32} = 11 \)
+- \( M_{33} = 6 \)
+
+#### TL;DR when calculating minors in matricies 
+- Ignore the row/column for the value you're calculating 
+- Then calculate the determinate 
+
+
+---
+
+#### Step 2: Apply the Cofactor Formula
+
+Now, we use the cofactor formula:
+
+\[
+C_{ij} = (-1)^{i+j} \cdot M_{ij}
+\]
+
+Where \( M_{ij} \) is the minor of \( a_{ij} \) and \( (-1)^{i+j} \) is the sign factor.
+
+##### Row 1 Cofactors:
+- \( C_{11} = (-1)^{1+1} \cdot (-33) = -33 \)
+- \( C_{12} = (-1)^{1+2} \cdot (-50) = +50 \)
+- \( C_{13} = (-1)^{1+3} \cdot (-31) = -31 \)
+
+##### Row 2 Cofactors:
+- \( C_{21} = (-1)^{2+1} \cdot (-3) = +3 \)
+- \( C_{22} = (-1)^{2+2} \cdot (-12) = -12 \)
+- \( C_{23} = (-1)^{2+3} \cdot (-14) = +14 \)
+
+##### Row 3 Cofactors:
+- \( C_{31} = (-1)^{3+1} \cdot (13) = +13 \)
+- \( C_{32} = (-1)^{3+2} \cdot (11) = -11 \)
+- \( C_{33} = (-1)^{3+3} \cdot (6) = +6 \)
+
+---
+
+#### Step 3: Construct the Cofactor Matrix
+
+The cofactor matrix is:
+
+\[
+\text{Cofactor Matrix} = \begin{bmatrix}
+-33 & 50 & -31 \\
+3 & -12 & 14 \\
+13 & -11 & 6
+\end{bmatrix}
+\]
+
+This is the cofactor matrix for \( A \).
+
+---
 
 ### Step 4: Construct the Adjugate Matrix
 
-- The adjugate (or adjoint) matrix is the transpose of the cofactor matrix:
-  \[
-  \text{Adj}(A) = \text{Cofactor}(A)^T
-  \]
+- Just tneed to trasnpose the cofactor matrix we have earlier 
+  - Swap rows and columns 
+
+#### From this
+
+\[
+\begin{bmatrix}
+-33 & 50 & -31 \\
+3 & -12 & 14 \\
+13 & -11 & 6
+\end{bmatrix}
+\]
+
+
+#### To this 
+
+
+
+\[
+\text{Adjugate Matrix} = \begin{bmatrix}
+-33 & 3 & 13 \\
+50 & -12 & -11 \\
+-31 & 14 & 6
+\end{bmatrix}
+\]
+
+
 
 ### Step 5: Divide by the Determinant
 
-- The inverse is given by:
-  \[
-  A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
-  \]
-
-## Example: Inverse of a 2x2 Matrix
-
-Let \( A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \).
-
-### Step 1: Check if \( \text{det}(A) \neq 0 \)
-
-- If \( ad - bc = 0 \), the matrix is not invertible.
-
-### Step 2: Compute the Cofactor Matrix
-
-- \[
-\text{Cofactor}(A) = \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
-\]
-
-### Step 3: Transpose the Cofactor Matrix (Adjugate)
-
-- \[
-  \text{Adj}(A) = \text{Cofactor}(A)^T = \begin{bmatrix} d & -c \\ -b & a \end{bmatrix}
-\]
-
-### Step 4: Divide by \( \text{det}(A) \)
-
-- \[
-A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
-\]
-  - Where \( \text{det}(A) = ad - bc \).
-
-## Example: Inverse of a 3x3 Matrix
-
-For a \( 3 \times 3 \) matrix:
+Given a matrix \( \mathbf{A} \), we can compute the inverse \( \mathbf{A}^{-1} \) (if it exists) using the formula:
 
 \[
-A = \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{bmatrix}
+\mathbf{A}^{-1} = \frac{1}{\text{det}(\mathbf{A})} \cdot \text{Adj}(\mathbf{A}),
 \]
 
-### Step 1: Compute the Determinant
+where:
 
-- Use cofactor expansion along the first row:
-  \[
-  \text{det}(A) = a_{11} \cdot \text{det}(M_{11}) - a_{12} \cdot \text{det}(M_{12}) + a_{13} \cdot \text{det}(M_{13})
-  \]
+- \( \text{det}(\mathbf{A}) \) is the determinant of the matrix \( \mathbf{A} \),
+- \( \text{Adj}(\mathbf{A}) \) is the adjugate matrix (or adjoint matrix).
 
-### Step 2: Compute the Cofactor Matrix
+### Conditions for Division by the Determinant
 
-- Calculate the cofactor for each element \( a_{ij} \).
+For a matrix to have an inverse, the determinant must be non-zero. If \( \text{det}(\mathbf{A}) = 0 \), the matrix is singular, and it does not have an inverse.
 
-### Step 3: Construct the Adjugate Matrix
+## Example
 
-- Transpose the cofactor matrix.
+Let’s say we have the matrix \( \mathbf{A} \) and its adjugate matrix \( \text{Adj}(\mathbf{A}) \), and we want to compute the inverse.
 
-### Step 4: Divide by \( \text{det}(A) \)
-
-- \[
-A^{-1} = \frac{1}{\text{det}(A)} \cdot \text{Adj}(A)
+### Given:
+\[
+\mathbf{A} = \begin{bmatrix}
+2 & 4 & 3 \\
+1 & 5 & 7 \\
+8 & 9 & 6
+\end{bmatrix}
 \]
-  - Where \( \text{det}(A) \) is computed using cofactor expansion.
-
-
-
-### How to Calculate the Determinant
-
-#### 2x2 Matrix:
-Given a 2x2 matrix:
+And the adjugate matrix (which we've calculated in previous examples):
 
 \[
-A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\text{Adj}(\mathbf{A}) = \begin{bmatrix}
+-33 & 50 & -31 \\
+3 & -12 & 14 \\
+13 & -11 & 6
+\end{bmatrix}
 \]
 
-The determinant of this matrix is:
+We previously found that:
+\[
+\text{det}(\mathbf{A}) = -3
+\]
+
+### Step 1: Divide by the Determinant
+
+Now that we have the adjugate matrix \( \text{Adj}(\mathbf{A}) \) and the determinant \( \text{det}(\mathbf{A}) = -3 \), we can compute the inverse using the formula:
 
 \[
-\text{det}(A) = ad - bc
+\mathbf{A}^{-1} = \frac{1}{\text{det}(\mathbf{A})} \cdot \text{Adj}(\mathbf{A})
 \]
 
-#### Example:
-For the matrix:
+This means we multiply the adjugate matrix by the scalar \( \frac{1}{\text{det}(\mathbf{A})} \). In this case, \( \frac{1}{\text{det}(\mathbf{A})} = \frac{1}{-3} \).
+
+Multiply the Adjugate Matrix by \( \frac{1}{\text{det}(\mathbf{A})} \):
 
 \[
-A = \begin{pmatrix} 3 & 8 \\ 4 & 6 \end{pmatrix}
+\mathbf{A}^{-1} = \frac{1}{-3} \cdot \begin{bmatrix}
+-33 & 50 & -31 \\
+3 & -12 & 14 \\
+13 & -11 & 6
+\end{bmatrix}
 \]
 
-The determinant is:
+Now, multiply each element of the adjugate matrix by \( \frac{1}{-3} \):
 
 \[
-\text{det}(A) = (3)(6) - (8)(4) = 18 - 32 = -14
+\mathbf{A}^{-1} = \begin{bmatrix}
+\frac{11}{3} & -\frac{50}{3} & \frac{31}{3} \\
+-1 & 4 & -\frac{14}{3} \\
+-\frac{13}{3} & \frac{11}{3} & -2
+\end{bmatrix}
 \]
+
+### Step 2: The Inverse Matrix
+
+After multiplying by \( \frac{1}{\text{det}(\mathbf{A})} \), we have the inverse matrix \( \mathbf{A}^{-1} \):
+
+\[
+\mathbf{A}^{-1} = \begin{bmatrix}
+\frac{11}{3} & -\frac{50}{3} & \frac{31}{3} \\
+-1 & 4 & -\frac{14}{3} \\
+-\frac{13}{3} & \frac{11}{3} & -2
+\end{bmatrix}
+\]
+
+
+## Another way to calculate the determinate for a 3x3 matrix
 
 #### 3x3 Matrix : using the `Sarrus Rule`
 
@@ -178,25 +373,7 @@ This method is a simple and efficient way to calculate the determinant of a
 3x3 matrix. It involves multiplying the elements in each row and column in
 a specific pattern, then adding up the results.
 
-#### **Sarrus Rule Pattern : Part 1**
 
-\[
-A = \begin{pmatrix} a11 & a12 & a13 \\ a21 & a22 & a23 \\ a31 & a32 & a33
-\end{pmatrix}
-\]
-   
-
-1. Multiply elements in each row:
-   * `Row 1`: a11 × a22 × a33 + a12 × a23 × a31
-   * `Row 2`: a21 × a13 × a32 - a22 × a12 × a31
-   * `Row 3`: a31 × a11 × a23 - a32 × a21 × a13 + a33 × a11 × a22 - a33 × a21 × a12
-2. Add and subtract the results in this order:
-   * Add the first two rows.
-   * Subtract the third row.
-
-<!-- <br>
-
-### Example Calculation using the `Sarrus rule`
 \[
 A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}
 \]
@@ -301,7 +478,7 @@ The determinant is calculated as:
 - If \(\text{det}(A) \neq 0\), the matrix is invertible.
 - If \(\text{det}(A) = 0\), the matrix is singular and does not have an inverse.
 
-### Don't forget about Serraus Method to find determinant
+### Don't forget about Serraus Method to find determinant for a 3x3 matrix
 
 \[
 A = \begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i

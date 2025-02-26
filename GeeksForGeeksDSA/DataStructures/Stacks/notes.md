@@ -6,7 +6,9 @@
 - A **linear data structure** that follows the **LIFO** (Last In First Out) principle.
   - The **last element inserted** is the **first** to be popped out.
   - Both **insertion** and **deletion** operations occur at **one end** only.
-
+- Keep in mind
+  - Last element in array is what the operations such as pop()/push() operate out of
+  - Last element in array == "Top" of the stack
 ---
 
 ## LIFO (Last In First Out) Principle
@@ -40,7 +42,7 @@
 - **`top()`**: Returns the top element of the stack.
 - **`isEmpty()`**: Returns `true` if the stack is empty, otherwise `false`.
 - **`isFull()`**: Returns `true` if the stack is full, otherwise `false`.
-
+- Last element in array == Top of stack
 ### Implementing a Stack
 - Maintain a reference to the **top item** of the stack.
 
@@ -111,7 +113,7 @@ Checks if the stack is full.
 
 ## To implement stack using arrays
 - Initialize an array 
-  - Treat the end as `the stack's TOP` 
+  - Treat the `end` as `the stack's TOP` 
   - Implement push/pop/peek operations
   - Handle cases when stack is either `empty` or `full`
 
@@ -188,7 +190,7 @@ public:
       /*
          Class constuctor that initalizes values every time a new class object is made
          
-         'Stack' is the dependent name that lets us refer to the current classs being defined. Using 'stack' as the dependent name in the constuctor let's us create an instance of the same type that's currently being defined so we cna create a new object that has the same properties/behaviors as the current object but in a different capacity
+         'Stack' is the dependent name that lets us refer to the current classs being defined. Using 'stack' as the dependent name in the constuctor let's us create an instance of the same type that's currently being defined so we can create a new object that has the same properties/behaviors as the current object but in a different capacity
          
          Example : if we have an existing `Stack` object with capacity 5, we can create a new object with capacity 10 using the constructor `Stack(int capacity) : top(-1), capacity(capacity)`. This allows us to reuse the same code for creating and managing stacks, but with different capacities.
 
@@ -257,7 +259,7 @@ int Stack::pop()
         return 0; 
     } 
     else { 
-        int x = a[top--]; 
+        int x = a[top--]; // Remember the first element is the 'top' for FILO a[0]
         return x; 
     } 
 } 
@@ -303,3 +305,53 @@ int main()
     return 0; 
 }
 ```
+
+# Disadvantage of Array Implementations 
+- Not dynamic 
+  - Can't grow/shrink based on needs during runtime 
+- Total size of stack must be defined beforehand
+
+---
+
+# [Applications, Advantages and Disadvantages of Stack](https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-stack/)
+
+## Application of stacks
+### Function calls
+- To keep track of return addresses of function calls
+- Lets program to return to correct location after a function is done executing
+### Recusion 
+- Stacks used to store local variables and return addresses of recursive function calls
+- Lets programs keep track of current state of recursion 
+### Expression evaluations 
+- Used to evaluate expressions in `postfix` notation (Reverse Polish Notation)
+### Syntax parsing
+- Stacks used to check validity of syntax in programming languages and in other formal languages 
+### Memory management
+- Stacks used to allocate/manage memory in some OSs and programming languages 
+
+# Advantages of Stacks
+- **Simplicity:** 
+  - Easy to use/understand 
+  - Suitable for wide range of applications
+- **Efficiency:** 
+  - Operations like push/pop done on stack performed in constant time (O(1))
+  - Providing efficient access to data
+- **Last-in, First-out (LIFO):** 
+  - Last element added to the stack `is the first removed` 
+  - Useful in numerous situations like `function calls` and `expression evaluations`
+- **Limited Memory Usage:** 
+  - Stacks only store elements that have been pushed onto them
+  - Makes them memory efficient compared to other DS
+
+# Disadvantages of Stacks
+- **Limited Access:** 
+  - Can only access elements from the top
+  - Makes it difficult to retrieve/modify elements in the middle of the stack
+- **Potential for Overflow:** 
+  - If more elements pushed to a stack than it can hold --> overflow error --> loss of data
+- **Not Suitable for Random Access:** 
+  - Can't randomly access elements in Stacks 
+  - Stacks unsuitable for applications where elements need to be access in particular order
+- **Limited Capacity:** 
+  - Stacks have fixed capacity 
+  - Can be a problem if the number of elements are unknown or highly variable 

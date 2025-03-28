@@ -2,8 +2,8 @@
 
 ## Follows Root-Left-Right Policy
 - Root node of subtree is visited first
-- Then left subtree 
-- Then right subtree
+- Then left subtree is recursively traversed
+- Then right subtree is recursivley traversed 
 
 ## Algorithm for Preorder Traversal 
 - If `root` is `NULL`
@@ -12,3 +12,8 @@
   - Example : Print Root's data
 - Preorder (root --> left)
 - Preorder (root --> right) 
+
+## Examples 
+
+![alt text](<../../../Screenshots/Screenshot 2025-03-27 181043.png>)
+![alt text](<../../../Screenshots/Screenshot 2025-03-27 331811214.png>)

@@ -183,7 +183,7 @@ int main(){
       - Then the node
 
 # Pre-Order Traversal Algorithm
-### N.L.R Approach (Root → Left → Right)
+### Node.Left.Right Approach (Root → Left → Right)
 
 Here's how the pre-order traversal algorithm works:
 ```bash
@@ -764,27 +764,30 @@ int main() {
 - Then explores the `neighboring nodes` at the `present depth` before moving on to the next nodes `at the next depth level`
 
 ## How does it work?
-- Starts at root node 
+- Step 1) Starts at root node 
   - Adds it to a `queue`
-- While queue is `not empty` 
+- Step 2) While queue is `not empty` 
   - `dequeue a node` and visit it
 - Enqueue all the children (if any) into the queue
 - Repeat steps 2 and 3 until queue is empty
 - This approach
   - Ensures the nodes at each level are visited 
   - Thus moving `horizontally` across the tree before moving to the next level
-    - Hence the breadth-first manner 
+    - Hence the `breadth-first` manner 
     - Makes it useful for tasks like :
-      - Finding the shortest path in unweighted graphs/trees
+      - Finding the `shortest path` in unweighted graphs/trees
 
 ## How BFT is accomplished
-- Using Stacks (Recusion)
-- Using Queue  (Recusion)
+- Using `Stacks` (Recusion)
+- Using `Queue`  (Recusion)
 
-### Using Stacks
+### Using `Stacks`
+- Stacks : Last In First Out (LIFO)
+  - New values are placed at the bottom
+  - While the 'newest' values are taken from the top
 - O(n) time and O(n) space
 - The big idea  
-  - Traverse the tree recursively
+  - Traverse the tree `recursively`
     - Passing the `current node` and it's `level`
     - Starting with the `root` node at level 0
   - For each visited node
@@ -812,7 +815,7 @@ public:
 };
 
 // Helper function for recursive level order traversal
-// Remember res is being passed by reference since we need to modify the actual vectors that are stored at the level-order traversal 
+// Remember 'res' is being passed by reference since we need to modify the actual vectors that are stored at the level-order traversal 
 void levelOrderRec(Node* root, int level, vector<vector<int>>& res) {
       // Base case: If node is null, return
     if (root == nullptr) return; 
@@ -866,3 +869,238 @@ int main() {
 }
 
 ```
+
+### Using `Queues` (Iteratively)
+- This is the `expected` approach according to GeeksToGeeks
+- Since we're accessing the nodes from the `root` then moving `downward`
+  - Using FIFO natrually works 
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node *left, *right;
+
+    // Constructor to initialize a new node
+    Node(int value) {
+        data = value;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+// Iterative method to perform level order traversal
+vector<vector<int>> levelOrder(Node *root) {
+
+    // If root points to nothing return back to the main program
+    if (root == nullptr)
+        return {};
+
+    // Create an empty queue for level order traversal
+    /*
+        Notes about 'container adapters' queue from the C++ STL
+            - queue<...>
+                - Template declaration indiciating we're using a queue
+                - Inside '< >' specifies the type of elements the queue still store
+                    - Which in this case is 'Node *'
+            - 'Node *'
+                - Stores pointers to the 'Node' ojbect 
+                - Versus the objects themselves 
+    */
+    queue<Node *> q;
+    vector<vector<int>> res;
+
+    // Enqueue Root
+    q.push(root);
+    int currLevel = 0;
+
+    while (!q.empty()) {
+
+        // Gives number of nodes at the current level
+        int len = q.size();
+
+        // Create a new vector for the current level and add it to 'res'
+        res.push_back({});
+
+        for (int i = 0; i < len; i++) {
+
+            // Add front of queue and remove it from queue
+            Node *node = q.front();
+
+            // Does the actual removal 
+            q.pop();
+
+            // Store the value of the current node into 'res' and the current level it's at
+            res[currLevel].push_back(node->data);
+
+            // Enqueue left child
+            if (node->left != nullptr)
+                q.push(node->left);
+
+            // Enqueue right child
+            if (node->right != nullptr)
+                q.push(node->right);
+        }
+        // 'Move' to the next level 
+        currLevel++;
+    }
+    return res;
+}
+
+int main() {
+    //      5
+    //     / \
+    //   12   13
+    //   /  \    \
+    //  7    14   2
+    // /  \   /  \  / \
+    //17 23 27  3  8  11
+
+    // Root level
+    Node *root = new Node(5);
+    
+    // First level
+    root->left = new Node(12);
+    root->right = new Node(13);
+    // --------------------------------------- //
+
+    // Second level
+    root->left->left = new Node(7);
+    root->left->right = new Node(14);
+    root->right->right = new Node(2);
+    // --------------------------------------- //
+
+    // Third level
+    root->left->left->left = new Node(17);
+    root->left->left->right = new Node(23);
+
+    root->left->right->left = new Node(27);
+    root->left->right->right = new Node(3);
+
+    root->right->right->left = new Node(8);
+    root->right->right->right = new Node(11);
+    // --------------------------------------- //
+    vector<vector<int>> res = levelOrder(root);
+
+    // Print out everything
+    // 'level' is a copy of each vector<int> inside 'res'
+    //for (vector<int> level : res) {
+    //    cout << "[";
+    //    for (int i = 0; i < level.size(); i++) {
+    //        cout << level[i];
+    //        if (i < level.size() - 1) cout << ", ";
+    //    }
+    //    cout << "] ";
+    //}
+    /*
+        Quick notes about range based for loops
+        
+        for (vector<int> level : res)
+            - To the left of the colon : The loop variable
+                - Represents each element in the container 'res' for each iteration 
+            - In this case
+                - 'level' is a vector<int> that holds one level of the tree at a time
+            - To the right of the colon 'res'
+                - Is the range expression 
+                - It's the container/iterable object that we're 'going' or iterating through
+                - In this case
+                    - 'res' is a vector<vector<int>> 
+                    - Meaning that 'level' will take on one vector<int> from 'res' during each iteration 
+    */
+    //    loopVariable that's saving everything : rangeExpression that we're iterating through
+    for (vector<int> level : res) {
+        cout << "Processing level: ";
+        for (int val : level) cout << val << " ";
+        cout << "\n";
+
+        cout << "["; // Opening bracket
+
+        for (int i = 0; i < level.size(); i++) {
+            cout << level[i];
+
+            if (i < level.size() - 1) cout << ", "; // Comma between values
+        }
+
+        cout << "] "; // Closing bracket
+        cout << "\n"; // Newline for better readability
+    }
+
+    return 0;
+}
+```
+
+# [Types of Binary Trees](https://www.geeksforgeeks.org/types-of-binary-tree/)
+
+## Type of binary trees based on `number of children`
+- Full binary Tree
+- Degenerate Binary Tree
+- Skewed Binary Tree
+
+## Full Binary Tree
+- Every node as `0` or `2` children
+- Leaf nodes (Nodes w/o children) must have `zero` children
+
+### Characterisitcs of a full binary tree
+- If a node has a `left child` it'll also have a `right child`
+- There's no node with only one child
+  - Either both children are present or there aren't any
+- If the tree isn't complete 
+  - In terms of all the `leaf nodes` NOT being at the same level
+
+![alt text](../../Screenshots/Terminologies-in-Binary-Tree-in-Data-Structure_1.jpeg)
+
+### Example of full binary tree
+```bash
+        1
+       / \
+      2   3
+     / \ / \
+    4  5 6  7
+```
+
+## Degenerate (pathological) tree
+- Every `internal node` has `one child`
+- Has same performance as a linked list
+- This tree has a `single child` 
+  - Either to the left or the right
+
+```bash
+# Degenerate Tree
+        10 
+       /
+      20 
+       \ 
+        30
+         \ 
+          40
+
+```
+
+## Skewed Tree
+- Also a pathological/degenerate tree
+  - That's `dominated` by the `left` or `right` nodes 
+  - Thus leading to two types of skewed binary trees
+    - Left
+    - Right
+# Right skewed
+1
+ \
+  2
+   \
+    3
+     \
+      4
+
+# Left skewed
+    1
+   /
+  2
+ /
+3
+/
+4
+```
+

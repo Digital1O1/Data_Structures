@@ -1065,7 +1065,7 @@ int main() {
 - Every `internal node` has `one child`
 - Has same performance as a linked list
 - This tree has a `single child` 
-  - Either to the left or the right
+  - Either to the `left` or the `right`
 
 ```bash
 # Degenerate Tree
@@ -1085,6 +1085,7 @@ int main() {
   - Thus leading to two types of skewed binary trees
     - Left
     - Right
+```bash
 # Right skewed
 1
  \
@@ -1103,4 +1104,61 @@ int main() {
 /
 4
 ```
+## Type of Binary Trees `based on completion` of levels
+- Complete
+- Perfect
+- Balanced 
 
+### Complete Binary Tree
+- All the levels are filled 
+  - `Except` possibly 
+    - the `last level` 
+    - and the last level that `has all keys` as left as possible
+- A complete binary tree is ssimilar to a full binary tree but with `two major differences`
+  - Every level `except` the last level must be completely filled
+  - All the leaf elements must lean towards the left
+  - The last leaf element might not have a right sibling 
+    - Note : A complete binary tree doesn't have to be a full binary tree
+![alt text](../../Screenshots/completedrawio.png)
+![alt text](../../Screenshots/Terminologies-in-Binary-Tree-in-Data-Structure_1.jpeg)
+
+- Read more about a complete tree [here](https://www.geeksforgeeks.org/complete-binary-tree/)
+
+### The Perfect Binary Tree
+- All the 
+  - Internal notes have `two children`
+  - The leaf nodes are `at the same level` 
+- In the perfect binary tree
+  - Both the previous statements hold true
+  - The number of leaf nodes is the numbero f internal nodes plus 1
+    - So `L = I + 1`
+      - Where `L` : Number of leaf nodes
+      - Where `I` : Number of internal nodes
+  - The height `H` 
+    - Where the height of the binary tree is 
+      - The number of edges in the longest path from the `root node` to `any leaf node` in the tree
+      - The height of the root node is 0
+    - has `2^h+1 - 1` node
+
+![alt text](../../Screenshots/perfect.png)
+
+
+### Balanced Binary Tree
+- Is considered balanced if :
+  - The height of the tree is `O(Log n)`
+    - Where `n` : Is the number of nodes
+    - Example : The `AVL tree` 
+      - Maintains `O(Log n)` height 
+        - By making sure the difference between the `heights` of the left/right subtrees is at most `1`
+      - Red-Black Trees
+        - Maintain `O(Log n)` height
+        - It accomplishes this by maksing sure the number of `Black nodes` on every root to leafe paths is `the same` and there's no adjacent red nodes 
+  - Balanced Binary Search Trees performance wise are great 
+    - Since they provide `O(Log n)` time for 
+      - Serach
+      - Insert
+      - Delete
+    - It's also a binary tree which the difference between the height of hte left/right subtree for each node is either `0` or `1`
+    - In the figure below
+      - The root node has avalue 0 is considered unbalanced with a depth of 2 units
+        ![alt text](../../Screenshots/UntitledDiagramdrawio-660x371.png)

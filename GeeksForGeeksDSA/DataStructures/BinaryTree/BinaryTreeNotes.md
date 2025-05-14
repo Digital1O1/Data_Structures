@@ -635,7 +635,7 @@ int main() {
 
 ### First step
 - Create a `root node` for an empty tree
-- The following insertuions would iteratively search for an `empty place` at each level of the tree 
+- The following instructions would iteratively search for an `empty place` at each level of the tree 
   - When an empty `left` or `right` child is found 
   - A new node is inserted there 
   - By convention insertion always starts with the left child node
@@ -815,7 +815,9 @@ public:
 };
 
 // Helper function for recursive level order traversal
-// Remember 'res' is being passed by reference since we need to modify the actual vectors that are stored at the level-order traversal 
+
+// Remember 'res' is being passed by reference since we need 
+// to modify the actual vectors that are stored at the level-order traversal 
 void levelOrderRec(Node* root, int level, vector<vector<int>>& res) {
       // Base case: If node is null, return
     if (root == nullptr) return; 
@@ -1130,17 +1132,17 @@ int main() {
   - The leaf nodes are `at the same level` 
 - In the perfect binary tree
   - Both the previous statements hold true
-  - The number of leaf nodes is the numbero f internal nodes plus 1
+  - The number of leaf nodes is the number of internal nodes plus 1
     - So `L = I + 1`
-      - Where `L` : Number of leaf nodes
-      - Where `I` : Number of internal nodes
+      - Where `L` : Number of `leaf nodes`
+      - Where `I` : Number of `internal nodes`
   - The height `H` 
     - Where the height of the binary tree is 
       - The number of edges in the longest path from the `root node` to `any leaf node` in the tree
       - The height of the root node is 0
     - has `2^h+1 - 1` node
 
-![alt text](../../Screenshots/perfect.png)
+        ![alt text](../../Screenshots/perfect.png)
 
 
 ### Balanced Binary Tree
@@ -1151,9 +1153,14 @@ int main() {
       - Maintains `O(Log n)` height 
         - By making sure the difference between the `heights` of the left/right subtrees is at most `1`
       - Red-Black Trees
+        - What are they?
+          - Self-balancing binary search tree data structure
+          - Noted for fast storage and retrieval of ordered information
+        - The `red` nodes
+          - 
         - Maintain `O(Log n)` height
-        - It accomplishes this by maksing sure the number of `Black nodes` on every root to leafe paths is `the same` and there's no adjacent red nodes 
-  - Balanced Binary Search Trees performance wise are great 
+        - It accomplishes this by making sure the number of `Black nodes` on every root to leafe paths is `the same` and there's no adjacent red nodes 
+  - `Balanced Binary Search Trees` performance wise are great 
     - Since they provide `O(Log n)` time for 
       - Serach
       - Insert
@@ -1162,3 +1169,265 @@ int main() {
     - In the figure below
       - The root node has avalue 0 is considered unbalanced with a depth of 2 units
         ![alt text](../../Screenshots/UntitledDiagramdrawio-660x371.png)
+
+
+
+## Special Types of Binary Trees
+
+
+
+#### For reference sake
+
+![alt text](../../Screenshots/Terminologies-in-Binary-Tree-in-Data-Structure_1.jpeg)
+
+
+
+Binary trees can be classified into several special types based on node values:
+
+### 1. Binary Search Tree (BST)
+A node-based binary tree with the following properties:
+- The difference between `heights` of the `left`/`right` subtrees `can't be more than one` for all nodes
+- Left subtree contains only nodes with keys **less** than the node’s key.
+- Right subtree contains only nodes with keys **greater** than the node’s key.
+- Both left and right subtrees must also be BSTs.
+
+
+```bash
+# BST 
+      8
+     / \
+    3   10
+   / \    \
+  1   6    14
+     / \   /
+    4   7 13
+```
+
+### 2. AVL Tree
+A **self-balancing** BST where:
+- The `height difference` between the left and right subtrees of every node is at most 1.
+
+```bash
+# AVL 
+      5
+     / \
+    3   8
+   /   /
+  2   6
+
+```
+
+### 3. Red-Black Tree
+A **self-balancing** BST with an extra bit for node color (red or black) to ensure balance.
+- Ensures `O(log n)` time complexity for insertions and deletions.
+- Invented by Rudolf Bayer in 1972.
+
+```bash
+# Red-Black Tree
+      10(B)
+     /     \
+   5(R)    15(R)
+  /  \       \
+2(B) 7(B)    20(B)
+```
+
+### 4. B-Tree
+A **self-balancing** tree used in databases and file systems.
+- Nodes can have multiple children and multiple keys.
+- Efficient for storing and retrieving large volumes of data.
+
+```bash 
+# B-Tree
+      [10 | 20]
+     /    |    \
+  [1 5] [12 15] [25 30]
+```
+
+### 5. B+ Tree
+A **variation of B-Tree** optimized for file systems and databases.
+- All data items are stored in **leaf nodes**.
+- Internal nodes only contain keys for indexing.
+- Leaf nodes are linked to allow **faster search** and **sequential access**.
+
+```bash
+# B+ Tree Order 3
+      [10 | 20]
+     /    |    \
+    |     |     |
+[1 5] [12 15] [25 30]  --> (leaf level, linked list)
+```
+
+### 6. Segment Tree
+Also known as a **statistic tree**, it stores information about intervals or segments.
+- Allows efficient querying of segments containing a given point.
+- Built in `O(n log n)` time and uses `O(n log n)` storage.
+- Query time: `O(log n + k)`, where `k` is the number of matching intervals.
+
+```bash
+# Segment Tree
+         [0,7]
+        /     \
+     [0,3]   [4,7]
+     /  \     /  \
+ [0,1][2,3][4,5][6,7]
+ / \   / \   / \  / \
+[0][1][2][3][4][5][6][7]
+```
+---
+
+#  Practical Examples of Special Binary Trees
+
+## 1. **Binary Search Tree (BST)**
+
+Use Case:
+Efficient dictionary implementation or in-memory indexing for small datasets.
+
+Example:
+Storing and querying names in a contact list by alphabetical order:
+```bash
+        John
+       /     \
+   Alice     Zoe
+     \       /
+    Bob    Mike
+```
+
+Fast lookups: Searching for “Mike” starts at root and goes right then left.
+
+## 2. **AVL Tree**
+
+Use Case:
+Used when consistent O(log n) performance is critical — e.g., in memory-constrained systems or search-intensive apps.
+
+Example:
+Auto-completion feature in a code editor:
+```bash
+
+       function
+       /       \
+   const       var
+  /
+case
+```
+Tree rebalances as terms are added/removed to ensure consistent performance.
+
+## 3. **Red-Black Tree**
+
+
+Use Case:
+Used in language libraries (e.g., Java’s TreeMap, C++ STL map and set) where guaranteed balanced performance is important.
+
+Example:
+Storing and retrieving user sessions by timestamp:
+```bash
+
+     [15:00(B)]
+     /         \
+ [13:00(R)]   [17:00(R)]
+```
+Ensures fast insertion, deletion, and lookup even with many sessions.
+
+## 4. **B-Tree**
+
+
+Use Case:
+Used in database indexing (e.g., MySQL, PostgreSQL) to store large datasets on disk efficiently.
+
+Example:
+Indexing millions of product IDs in an e-commerce database:
+```bash
+
+       [1000 | 5000]
+      /     |      \
+[1–999] [1001–4999] [5001–9999]
+```
+
+Optimized for minimizing disk reads due to wide branching.
+
+## 5. **B+ Tree**
+
+
+Use Case:
+Used in file systems and DBMS (e.g., SQLite, NTFS, Oracle), especially when range queries are common.
+
+Example:
+Finding all customer transactions between IDs 2000–3000:
+```bash
+
+Internal:      [1000 | 5000]
+               /     |     \
+Leaves:  [1–999] [1000–4999] [5000–9999]
+              ↔ Linked list ↔
+```
+All actual data in leaf nodes; fast range scans using linked leaves.
+
+## 6. **Segment Tree**
+
+
+Use Case:
+Used in competitive programming, gaming, or real-time analytics to process range queries efficiently.
+
+Example:
+Finding the maximum temperature in a given date range:
+```bash
+           [0-6]
+         /      \
+     [0-3]     [4-6]
+    /    \     /    \
+[0-1] [2-3] [4-5]  [6]
+```
+Each node stores max temperature for that interval.
+
+Query: “What was the max temperature between day 2 and 5?”
+
+---
+
+# Pros/Cons using Trees
+
+## Advantages
+### Efficient Searching
+* Time complexity in a tree is O(log n) in AVL and Red Black Trees.
+* Better than `arrays` and `linked lists`, but not as good as `hashing`.
+* The advantages of trees include:
+  * Sorting data
+  * Searching for floor/ceiling of data
+
+### Fast Insertion/Deletion
+* Doing either in a self-balancing search tree like AVL or Red Black can be done in O(log n).
+* Still better than arrays and linked lists, but not as good as hashes.
+* The advantages of trees are stated above.
+
+### Tree Representation
+* Provides a hierarchical representation of data.
+* Makes it easy to organize and navigate large amounts of data.
+* Natural organization makes them useful for representing:
+  * File systems
+  * Organizational structures
+  * Taxonomies
+
+### Dynamic Size
+* Unlike arrays, trees can easily grow or shrink dynamically.
+* Dependent on the number of nodes that are added or removed.
+* Super useful for applications where data size could change over time.
+
+## Disadvantages
+### Memory Overhead
+* Trees need a lot of memory to store data.
+* Can be a problem with applications that have limited memory resources.
+
+### Imbalanced Trees
+* Can result in uneven search times.
+* Issue with applications where speed is critical.
+
+### Complexity
+* Unlike arrays and linked lists, trees are complex data structures.
+* Can be difficult to understand and implement correctly.
+
+### Limited Use Cases
+* If you ONLY need to search/insert/delete data.
+* And don't have to worry about:
+  * Data traversal
+  * Floor/ceiling
+
+### Implementation Complexity
+* Can be complex and require a good understanding of algorithms.
